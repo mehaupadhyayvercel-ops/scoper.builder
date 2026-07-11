@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import OpenAI from 'openai';
 
-const NVIDIA_KEY = process.env.NVIDIA_API_KEY || "";
+const NVIDIA_KEY = process.env.NVIDIA_API_KEY || "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";
 
 const ai = new OpenAI({
   apiKey: NVIDIA_KEY,
@@ -106,7 +106,7 @@ Return ONLY a JSON object with this exact schema (no markdown, no code fences):
 }`;
 
     const aiCall = ai.chat.completions.create({
-      model: "meta/llama-3.1-8b-instruct", // Using a faster 8B model to stay well under Vercel's 10s limit
+      model: "deepseek-ai/deepseek-v4-flash",
       messages: [
         {
           role: "system",
@@ -114,13 +114,14 @@ Return ONLY a JSON object with this exact schema (no markdown, no code fences):
         },
         { role: "user", content: prompt },
       ],
-      temperature: 0.5,
-      max_tokens: 1000,
-      stream: false,
+      temperature: 1,
+      top_p: 0.95,
+      max_tokens: 3000,
+      stream: false
     });
 
-    // Vercel strict limit timeout (8 seconds to be safe before Vercel kills it at 10s)
-    const completion = await withTimeout(aiCall, 8500);
+    // Vercel max timeout is 60s, so we time out at 55s to gracefully return fallback if needed
+    const completion = await withTimeout(aiCall, 55000);
 
     let content = completion.choices[0]?.message?.content?.trim() || "";
 
