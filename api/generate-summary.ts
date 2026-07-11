@@ -106,7 +106,7 @@ Return ONLY a JSON object with this exact schema (no markdown, no code fences):
 }`;
 
     const aiCall = ai.chat.completions.create({
-      model: "meta/llama-3.3-70b-instruct",
+      model: "meta/llama-3.1-8b-instruct", // Using a faster 8B model to stay well under Vercel's 10s limit
       messages: [
         {
           role: "system",
@@ -114,13 +114,13 @@ Return ONLY a JSON object with this exact schema (no markdown, no code fences):
         },
         { role: "user", content: prompt },
       ],
-      temperature: 0.6,
-      max_tokens: 3000,
+      temperature: 0.5,
+      max_tokens: 1000,
       stream: false,
     });
 
-    // 45-second server-side timeout
-    const completion = await withTimeout(aiCall, 45000);
+    // Vercel strict limit timeout (8 seconds to be safe before Vercel kills it at 10s)
+    const completion = await withTimeout(aiCall, 8500);
 
     let content = completion.choices[0]?.message?.content?.trim() || "";
 
