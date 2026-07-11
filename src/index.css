@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Source Serif 4", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  
+  --color-surface: #fbf9f5;
+  --color-surface-dim: #dbdad6;
+  --color-surface-bright: #fbf9f5;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f5f3ef;
+  --color-surface-container: #efeeea;
+  --color-surface-container-high: #eae8e4;
+  --color-surface-container-highest: #e4e2de;
+  --color-on-surface: #1b1c1a;
+  --color-on-surface-variant: #53433d;
+  --color-outline: #86736c;
+  --color-outline-variant: #d8c2b9;
+  --color-primary: #8b4b2d;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #a86343;
+  --color-on-primary-container: #fffbff;
+  --color-secondary: #635d5a;
+  --color-on-secondary: #ffffff;
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  
+  --shadow-ambient: 0px 2px 10px rgba(45, 41, 38, 0.05);
+  --shadow-floating: 0px 10px 30px rgba(45, 41, 38, 0.08);
+}
+
+body {
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+  -webkit-font-smoothing: antialiased;
+}
+
+.clay-card {
+  background: #ffffff;
+  border-radius: 2rem;
+  box-shadow: 12px 12px 24px rgba(209, 205, 199, 0.45), -12px -12px 24px rgba(255, 255, 255, 0.9), inset 3px 3px 6px rgba(255, 255, 255, 0.8), inset -3px -3px 6px rgba(209, 205, 199, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  transition: all 0.3s ease;
+}
+
+.clay-input {
+  background: #f4f1ed;
+  border-radius: 1rem;
+  box-shadow: inset 6px 6px 12px rgba(209, 205, 199, 0.6), inset -6px -6px 12px rgba(255, 255, 255, 1);
+  border: 2px solid transparent;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.clay-input:focus {
+  box-shadow: inset 4px 4px 8px rgba(209, 205, 199, 0.5), inset -4px -4px 8px rgba(255, 255, 255, 0.9);
+  border-color: var(--color-primary);
+}
+
+.clay-btn {
+  background: var(--color-primary);
+  border-radius: 1rem;
+  box-shadow: 6px 6px 14px rgba(139, 75, 45, 0.35), -6px -6px 14px rgba(255, 255, 255, 0.85), inset 2px 2px 5px rgba(255, 255, 255, 0.4), inset -2px -2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.clay-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 8px 8px 18px rgba(139, 75, 45, 0.35), -8px -8px 18px rgba(255, 255, 255, 0.95), inset 2px 2px 5px rgba(255, 255, 255, 0.4);
+}
+
+.clay-btn:active {
+  transform: translateY(1px);
+  box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.15), inset -4px -4px 10px rgba(255, 255, 255, 0.25);
+}
+
+.clay-btn-secondary {
+  background: #fbf9f5;
+  border-radius: 1rem;
+  box-shadow: 6px 6px 14px rgba(209, 205, 199, 0.45), -6px -6px 14px rgba(255, 255, 255, 0.9), inset 2px 2px 5px rgba(255, 255, 255, 0.8), inset -2px -2px 5px rgba(209, 205, 199, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  color: var(--color-on-surface);
+  transition: all 0.2s ease;
+}
+
+.clay-btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 8px 8px 18px rgba(209, 205, 199, 0.45), -8px -8px 18px rgba(255, 255, 255, 0.95);
+}
+
+.clay-btn-secondary:active {
+  transform: translateY(1px);
+  box-shadow: inset 4px 4px 10px rgba(209, 205, 199, 0.3), inset -4px -4px 10px rgba(255, 255, 255, 0.8);
+}
+
+.clay-text {
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.9), -1px -1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.clay-title {
+  text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.9), -1px -1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.clay-checkbox {
+  appearance: none;
+  background-color: #f5f3ef;
+  margin: 0;
+  font: inherit;
+  width: 1.25em;
+  height: 1.25em;
+  border-radius: 0.25em;
+  display: grid;
+  place-content: center;
+  box-shadow: inset 2px 2px 4px rgba(209, 205, 199, 0.5), inset -2px -2px 4px rgba(255, 255, 255, 0.9);
+  transition: all 0.2s ease;
+}
+
+.clay-checkbox::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--color-on-primary);
+  background-color: var(--color-on-primary);
+  transform-origin: center;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+.clay-checkbox:checked {
+  background-color: var(--color-primary);
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.clay-checkbox:checked::before {
+  transform: scale(1);
+}

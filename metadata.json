@@ -1,0 +1,6 @@
+{
+  "name": "Project Assessment",
+  "description": "A guided pre-consultation experience to convert a vague business idea into a structured Project Summary.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
