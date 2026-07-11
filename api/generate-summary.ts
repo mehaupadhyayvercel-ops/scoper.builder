@@ -59,6 +59,8 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
   ]);
 }
 
+export const maxDuration = 60; // Prevent Vercel's default 10s timeout which causes 500 errors
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -73,10 +75,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const { data } = req.body;
 
     const prompt = `You are an expert software architect and project estimator at OpenXcell.
-Based on the following project assessment input, generate a detailed project summary as strictly valid JSON.
+Based on the following project assessment input, generate a highly personalized project summary as strictly valid JSON.
 
 Input:
 ${JSON.stringify(data, null, 2)}
+
+Instructions:
+1. Analyze the 'business', 'projectDescription', and 'preferences' thoroughly.
+2. Recommended Solution: Write a 2-3 sentence technical solution description tailored specifically to their idea and industry.
+3. Features: List 8-10 specific features they will need based on their input (e.g., if healthcare, mention HIPAA compliance or patient portals).
+4. Complexity: Calculate realistically based on platforms and capabilities selected (Low | Medium | High).
+5. Timeline: Estimate based on their preferences and scope (e.g., 12-16 weeks).
+6. Investment Range: Provide a realistic cost (e.g., ₹18-30L) aligning with their budget preference.
+7. Team: List 5-7 necessary roles for this specific build.
 
 Return ONLY a JSON object with this exact schema (no markdown, no code fences):
 {
