@@ -95,14 +95,13 @@ const FALLBACK_SUMMARY: SummaryData = {
 export function SummaryScreen() {
   const { data } = useAppContext();
   const { click, success } = useSound();
-  // Start with fallback so the screen renders immediately — no blocking spinner
-  const [summary, setSummary] = useState<SummaryData>(FALLBACK_SUMMARY);
-  const [aiLoading, setAiLoading] = useState(true); // subtle indicator only
+  const [summary, setSummary] = useState<SummaryData | null>(null);
+  const [aiLoading, setAiLoading] = useState(true);
 
   useEffect(() => {
     async function fetchSummary() {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s timeout
+      const timeoutId = setTimeout(() => controller.abort(), 58000); // 58s timeout
       try {
         const response = await fetch('/api/generate-summary', {
           method: 'POST',
@@ -112,10 +111,10 @@ export function SummaryScreen() {
         });
         if (!response.ok) throw new Error('API Error');
         const result = await response.json();
-        setSummary(result); // silently upgrade data
+        setSummary(result);
         success(); // 🎵 play chime when AI data arrives
       } catch {
-        // Silently keep fallback — no error state shown
+        setSummary(FALLBACK_SUMMARY); // only show fallback if API completely fails
       } finally {
         clearTimeout(timeoutId);
         setAiLoading(false);
@@ -126,10 +125,28 @@ export function SummaryScreen() {
 
 
   const complexityColor =
-    summary.complexity?.toLowerCase() === 'high' ? '#b85c38' :
-    summary.complexity?.toLowerCase() === 'medium' ? '#cd853f' : '#5a7a5a';
+    summary?.complexity?.toLowerCase() === 'high' ? '#b85c38' :
+    summary?.complexity?.toLowerCase() === 'medium' ? '#cd853f' : '#5a7a5a';
 
   const platformCount = (data.preferences as any)?.platforms?.length || 1;
+
+  if (aiLoading || !summary) {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="w-full flex flex-col items-center justify-center min-h-[60vh] gap-4"
+      >
+        <Loader2 size={32} className="animate-spin text-primary" />
+        <h2 className="font-serif text-xl font-semibold text-on-surface clay-title">
+          Analyzing Your Requirements
+        </h2>
+        <p className="text-secondary text-sm clay-text">
+          Our AI is building your personalized roadmap...
+        </p>
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div
