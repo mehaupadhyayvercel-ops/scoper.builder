@@ -131,6 +131,38 @@ Return ONLY a JSON object with this exact schema (no markdown, no code fences):
       .trim();
 
     const summaryData = JSON.parse(content);
+
+    // Save lead to Supabase asynchronously (we do not await it here to save time for the user, but we can await it if we want to guarantee storage)
+    try {
+      const { createClient } = await import('@supabase/supabase-js');
+      const supabaseUrl = process.env.SUPABASE_URL || 'https://andpelfahbjxsudpiqlo.supabase.co';
+      
+      // We must use env variable because GitHub blocks pushes containing hardcoded secrets
+      const supabaseKey = process.env.SUPABASE_SECRET_KEY; 
+      
+      if (supabaseKey) {
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
+        await supabase.from('leads').insert({
+          full_name: data.business.fullName,
+          email: data.business.email,
+          company_name: data.business.companyName,
+          industry: data.business.industry,
+          project_description: data.projectDescription,
+          platforms: data.preferences.platforms || [],
+          capabilities: data.preferences.capabilities || [],
+          timeline_preference: data.preferences.timeline,
+          budget_preference: data.preferences.budget,
+          ai_summary: summaryData
+        });
+        console.log("✅ Lead successfully saved to Supabase.");
+      } else {
+        console.warn("⚠️ SUPABASE_SECRET_KEY not found in environment variables. Lead not saved.");
+      }
+    } catch (dbError) {
+      console.error("❌ Failed to save lead to Supabase:", dbError);
+    }
+
     return res.json(summaryData);
   } catch (error) {
     console.error("AI generation error — returning fallback:", error);
