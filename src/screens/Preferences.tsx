@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { useAppContext } from '../context/AppContext';
+import { useSound } from '../hooks/useSound';
 
 const PLATFORMS = ['Web', 'Android', 'iOS', 'Desktop'];
 const CAPABILITIES = ['Authentication', 'Dashboard', 'Reports', 'Notifications', 'Payments', 'Analytics', 'Admin Panel', 'Chat', 'AI Features'];
@@ -8,24 +9,29 @@ const BUDGETS = ['Under ₹10L', '₹10–25L', '₹25–50L', '₹50L+'];
 
 export function PreferencesScreen() {
   const { data, updateData, goNext, goBack } = useAppContext();
+  const { click } = useSound();
 
   const togglePlatform = (platform: string) => {
+    click();
     const current = data.preferences.platforms;
     const next = current.includes(platform) ? current.filter(p => p !== platform) : [...current, platform];
     updateData({ preferences: { ...data.preferences, platforms: next } });
   };
 
   const toggleCapability = (cap: string) => {
+    click();
     const current = data.preferences.capabilities;
     const next = current.includes(cap) ? current.filter(c => c !== cap) : [...current, cap];
     updateData({ preferences: { ...data.preferences, capabilities: next } });
   };
 
   const setTimeline = (timeline: string) => {
+    click();
     updateData({ preferences: { ...data.preferences, timeline } });
   };
 
   const setBudget = (budget: string) => {
+    click();
     updateData({ preferences: { ...data.preferences, budget } });
   };
 
@@ -121,13 +127,13 @@ export function PreferencesScreen() {
 
         <div className="pt-6 flex items-center justify-between">
           <button 
-            onClick={() => goBack('project')}
+            onClick={() => { click(); goBack('project'); }}
             className="text-secondary hover:text-on-surface font-medium transition-colors"
           >
             Previous
           </button>
           <button 
-            onClick={() => goNext('processing')}
+            onClick={() => { click(); goNext('processing'); }}
             className="clay-btn px-8 py-3 text-base font-semibold"
           >
             Generate Project Summary

@@ -1,9 +1,11 @@
 import { motion } from 'motion/react';
 import { useAppContext } from '../context/AppContext';
 import { useState } from 'react';
+import { useSound } from '../hooks/useSound';
 
 export function BusinessInfoScreen() {
   const { data, updateData, goNext, goBack } = useAppContext();
+  const { click } = useSound();
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleChange = (field: string, value: string) => {
@@ -32,6 +34,7 @@ export function BusinessInfoScreen() {
       return;
     }
 
+    click();
     goNext('project');
   };
 
@@ -141,7 +144,7 @@ export function BusinessInfoScreen() {
 
         <div className="mt-10 pt-6 border-t border-outline-variant/30 flex items-center justify-between">
           <button 
-            onClick={() => goBack('welcome')}
+            onClick={() => { click(); goBack('welcome'); }}
             className="text-secondary hover:text-on-surface font-medium transition-colors"
           >
             Previous

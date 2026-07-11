@@ -1,9 +1,11 @@
 import { motion } from 'motion/react';
 import { useAppContext } from '../context/AppContext';
 import { Target, FileText, Clock, BarChart3, Users } from 'lucide-react';
+import { useSound } from '../hooks/useSound';
 
 export function WelcomeScreen() {
   const { goNext } = useAppContext();
+  const { click } = useSound();
 
   return (
     <motion.div
@@ -47,12 +49,13 @@ export function WelcomeScreen() {
 
       <div className="flex flex-col sm:flex-row items-center gap-4">
         <button 
-          onClick={() => goNext('business')}
+          onClick={() => { click(); goNext('business'); }}
           className="clay-btn px-8 py-3.5 text-base font-semibold w-full sm:w-auto"
         >
           Start Assessment
         </button>
         <button 
+          onClick={click}
           className="clay-btn-secondary px-8 py-3.5 text-base font-medium w-full sm:w-auto"
         >
           Return to Website

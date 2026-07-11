@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { useAppContext } from '../context/AppContext';
 import { useState } from 'react';
 import { Lightbulb } from 'lucide-react';
+import { useSound } from '../hooks/useSound';
 
 const INSPIRATION_CARDS = [
   'Healthcare platform', 'Multi-vendor Marketplace', 'E-commerce store', 
@@ -10,9 +11,11 @@ const INSPIRATION_CARDS = [
 
 export function ProjectDetailsScreen() {
   const { data, updateData, goNext, goBack } = useAppContext();
+  const { click } = useSound();
   const [error, setError] = useState('');
 
   const handleInspirationClick = (text: string) => {
+    click();
     const current = data.projectDescription;
     const prefix = `I want to build a ${text.toLowerCase()} where `;
     updateData({ projectDescription: current ? `${prefix}${current}` : prefix });
@@ -24,6 +27,7 @@ export function ProjectDetailsScreen() {
       setError('Tell us a little about your business idea so we can prepare a better assessment.');
       return;
     }
+    click();
     goNext('preferences');
   };
 
@@ -83,7 +87,7 @@ export function ProjectDetailsScreen() {
 
         <div className="mt-10 pt-6 border-t border-outline-variant/30 flex items-center justify-between">
           <button 
-            onClick={() => goBack('business')}
+            onClick={() => { click(); goBack('business'); }}
             className="text-secondary hover:text-on-surface font-medium transition-colors"
           >
             Previous
