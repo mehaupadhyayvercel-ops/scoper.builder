@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import OpenAI from 'openai';
 
-const NVIDIA_KEY = process.env.NVIDIA_API_KEY || "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";
+const NVIDIA_KEY = process.env.NVIDIA_API_KEY || "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";
 
 const ai = new OpenAI({
   apiKey: NVIDIA_KEY,
@@ -92,7 +92,7 @@ Return ONLY a JSON object with this exact schema (no markdown, no code fences):
 }`;
 
     const aiCall = ai.chat.completions.create({
-      model: "deepseek-ai/deepseek-v4-flash",
+      model: "z-ai/glm-5.2",
       messages: [
         {
           role: "system",
