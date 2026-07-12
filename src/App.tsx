@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { AppProvider, useAppContext } from './context/AppContext';
 import { Stepper } from './components/Stepper';
 import { WelcomeScreen } from './screens/Welcome';
@@ -8,95 +7,55 @@ import { PreferencesScreen } from './screens/Preferences';
 import { ProcessingScreen } from './screens/Processing';
 import { SummaryScreen } from './screens/Summary';
 import { AnimatePresence } from 'motion/react';
-import { Search, Menu, X } from 'lucide-react';
-
-const NAV_LINKS = [
-  { label: 'Services', url: 'https://www.openxcell.com/services/' },
-  { label: 'Platforms', url: 'https://www.openxcell.com/software-development/' },
-  { label: 'Industry', url: 'https://www.openxcell.com/industries/' },
-  { label: 'Our Work', url: 'https://www.openxcell.com/work/' },
-  { label: 'About', url: 'https://www.openxcell.com/about-us/' },
-  { label: 'Excellence', url: 'https://www.openxcell.com/engagement-models/' }
-];
+import CardNav from './components/CardNav';
 
 function AppContent() {
   const { currentStep } = useAppContext();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const navItems = [
+    {
+      label: "Services",
+      bgColor: "#111827", 
+      textColor: "#fff",
+      links: [
+        { label: "Custom Software", href: "https://www.openxcell.com/services/", ariaLabel: "Custom Software" },
+        { label: "Mobile Apps", href: "https://www.openxcell.com/mobile-app-development/", ariaLabel: "Mobile Apps" },
+        { label: "Web Apps", href: "https://www.openxcell.com/web-development/", ariaLabel: "Web Apps" }
+      ]
+    },
+    {
+      label: "Company", 
+      bgColor: "#1f2937", 
+      textColor: "#fff",
+      links: [
+        { label: "About Us", href: "https://www.openxcell.com/about-us/", ariaLabel: "About Us" },
+        { label: "Our Work", href: "https://www.openxcell.com/work/", ariaLabel: "Our Work" },
+        { label: "Excellence", href: "https://www.openxcell.com/engagement-models/", ariaLabel: "Excellence" }
+      ]
+    },
+    {
+      label: "Platforms",
+      bgColor: "#374151", 
+      textColor: "#fff",
+      links: [
+        { label: "AI & ML", href: "https://www.openxcell.com/artificial-intelligence/", ariaLabel: "AI & ML" },
+        { label: "Cloud", href: "https://www.openxcell.com/cloud-computing/", ariaLabel: "Cloud" },
+        { label: "Industries", href: "https://www.openxcell.com/industries/", ariaLabel: "Industries" }
+      ]
+    }
+  ];
 
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Header */}
-      <header className="h-20 border-b border-outline-variant/20 flex items-center px-6 lg:px-12 bg-surface/80 backdrop-blur-md sticky top-0 z-50 shadow-[0_4px_12px_rgba(209,205,199,0.3)]">
-        <div className="max-w-[1400px] mx-auto w-full flex items-center justify-between">
-          
-          {/* Logo */}
-          <div className="flex items-center gap-3 cursor-pointer" onClick={() => window.location.href = 'https://www.openxcell.com/'}>
-            <div className="w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center font-serif font-bold text-xl leading-none shadow-[inset_1px_1px_2px_rgba(255,255,255,0.4),inset_-1px_-1px_2px_rgba(0,0,0,0.2)] clay-title">
-              O
-            </div>
-            <span className="font-serif font-semibold text-xl tracking-tight text-on-surface hidden sm:block clay-title">OpenXcell</span>
-          </div>
-
-          {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-6">
-            <nav className="flex items-center gap-6 mr-4">
-              {NAV_LINKS.map(link => (
-                <a key={link.label} href={link.url} target="_blank" rel="noreferrer" className="text-sm font-semibold text-on-surface hover:text-primary transition-colors clay-text">
-                  {link.label}
-                </a>
-              ))}
-            </nav>
-            
-            {/* CTAs strictly ordered as per UX brief */}
-            <div className="flex items-center gap-3">
-              <button onClick={() => window.location.reload()} className="clay-btn-secondary px-5 py-2.5 text-sm font-bold">
-                Start Project Assessment
-              </button>
-              <button onClick={() => window.open('https://www.openxcell.com/contact-us/', '_blank')} className="clay-btn px-5 py-2.5 text-sm font-bold">
-                Let's Connect
-              </button>
-              <button onClick={() => window.open('https://www.openxcell.com/contact-us/', '_blank')} className="ml-2 p-2 text-on-surface hover:text-primary transition-colors">
-                <Search size={20} />
-              </button>
-            </div>
-          </div>
-
-          {/* Mobile Menu Toggle */}
-          <div className="lg:hidden flex items-center gap-4">
-             <button onClick={() => window.open('https://www.openxcell.com/contact-us/', '_blank')} className="p-2 text-on-surface hover:text-primary transition-colors">
-               <Search size={20} />
-             </button>
-             <button 
-               className="p-2 text-on-surface hover:text-primary transition-colors"
-               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-             >
-               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-             </button>
-          </div>
-        </div>
-      </header>
-
-      {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden absolute top-20 left-0 w-full bg-surface border-b border-outline-variant/20 shadow-lg z-40 p-6 flex flex-col gap-6">
-          <div className="flex flex-col gap-4">
-            {/* Mobile CTAs strictly ordered as per UX brief */}
-            <button onClick={() => { window.location.reload(); setMobileMenuOpen(false); }} className="clay-btn-secondary w-full py-3 text-sm font-bold">
-              Start Project Assessment
-            </button>
-            <button onClick={() => { window.open('https://www.openxcell.com/contact-us/', '_blank'); setMobileMenuOpen(false); }} className="clay-btn w-full py-3 text-sm font-bold">
-              Let's Connect
-            </button>
-          </div>
-          <nav className="flex flex-col gap-4 border-t border-outline-variant/10 pt-4">
-            {NAV_LINKS.map(link => (
-              <a key={link.label} href={link.url} target="_blank" rel="noreferrer" className="text-base font-semibold text-on-surface hover:text-primary transition-colors clay-text">
-                {link.label}
-              </a>
-            ))}
-          </nav>
-        </div>
-      )}
+    <div className="min-h-screen flex flex-col pt-24">
+      {/* Animated Card Navigation Header */}
+      <CardNav 
+        logo=""
+        items={navItems}
+        baseColor="#ffffff"
+        menuColor="#111827"
+        buttonBgColor="#111827"
+        buttonTextColor="#ffffff"
+      />
 
       {/* Main Content */}
       <main className="flex-1 w-full px-4 lg:px-6 py-4 lg:py-5 relative z-10">
