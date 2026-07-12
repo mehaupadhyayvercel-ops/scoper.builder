@@ -1,14 +1,12 @@
 import { motion } from 'motion/react';
 import { useAppContext } from '../context/AppContext';
-import { Download, ArrowRight, CheckCircle2, Info } from 'lucide-react';
+import { Download, ArrowRight, CheckCircle2, Info, Clock, Banknote, Gauge } from 'lucide-react';
 import { useSound } from '../hooks/useSound';
 
 export function SummaryScreen() {
   const { summaryData, click } = useAppContext();
   const { success } = useSound();
 
-  // Play success chime once on mount since data is already ready
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const summary = summaryData as {
     recommendedSolution: string;
     whyThisRecommendation: string;
@@ -38,6 +36,7 @@ export function SummaryScreen() {
       animate={{ opacity: 1, y: 0 }}
       className="w-full max-w-4xl mx-auto pb-12"
     >
+      {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
         <div>
           <h2 className="font-serif text-3xl font-semibold text-on-surface clay-title leading-tight mb-2">
@@ -52,102 +51,109 @@ export function SummaryScreen() {
         </button>
       </div>
 
+      {/* Single full-width card — no sidebar, no empty space */}
       <div className="clay-card overflow-hidden">
-        <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-outline-variant/30">
-          
-          {/* Main Content Column */}
-          <div className="md:col-span-2 p-6 sm:p-8 space-y-8 bg-surface">
-            
-            <section>
-              <h3 className="text-sm font-bold uppercase tracking-wider text-primary mb-3 clay-text">Recommended Solution</h3>
-              <p className="text-base text-on-surface leading-relaxed clay-text">{summary.recommendedSolution}</p>
-            </section>
+        <div className="p-6 sm:p-8 space-y-8">
 
-            <section>
-              <h3 className="text-sm font-bold uppercase tracking-wider text-primary mb-3 clay-text">Why This Recommendation</h3>
-              <p className="text-base text-secondary leading-relaxed clay-text">{summary.whyThisRecommendation}</p>
-            </section>
+          {/* Recommended Solution */}
+          <section>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-primary mb-3 clay-text">Recommended Solution</h3>
+            <p className="text-base text-on-surface leading-relaxed clay-text">{summary.recommendedSolution}</p>
+          </section>
 
-            <section>
-              <h3 className="text-sm font-bold uppercase tracking-wider text-primary mb-3 clay-text">Suggested Features</h3>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {summary.features.map((feature, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-on-surface clay-text leading-snug">
-                    <CheckCircle2 size={16} className="text-primary shrink-0 mt-0.5" />
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
+          {/* Why This Recommendation */}
+          <section>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-primary mb-3 clay-text">Why This Recommendation</h3>
+            <p className="text-base text-secondary leading-relaxed clay-text">{summary.whyThisRecommendation}</p>
+          </section>
 
-            <section>
-              <h3 className="text-sm font-bold uppercase tracking-wider text-primary mb-3 clay-text">Suggested Delivery Team</h3>
-              <div className="space-y-4">
-                {summary.team.map((member, i) => (
-                  <div key={i} className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                    <span className="font-semibold text-sm text-on-surface min-w-[140px] clay-text">{member.role}</span>
-                    <span className="text-sm text-secondary clay-text leading-snug">— {member.reason}</span>
+          {/* 3 Metric boxes in a row — timeline, investment, complexity */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="bg-surface-container/50 rounded-2xl p-4 border border-outline-variant/20">
+              <div className="flex items-center gap-1.5 text-secondary mb-2">
+                <Clock size={13} />
+                <span className="text-[10px] font-bold uppercase tracking-wider clay-text">Estimated Timeline</span>
+                <Info size={11} className="opacity-40" />
+              </div>
+              <p className="text-xl font-serif font-bold text-on-surface clay-title">{summary.timeline}</p>
+              <p className="text-[10px] text-secondary mt-1 clay-text italic">Subject to discovery phase.</p>
+            </div>
+
+            <div className="bg-surface-container/50 rounded-2xl p-4 border border-outline-variant/20">
+              <div className="flex items-center gap-1.5 text-secondary mb-2">
+                <Banknote size={13} />
+                <span className="text-[10px] font-bold uppercase tracking-wider clay-text">Estimated Investment</span>
+                <Info size={11} className="opacity-40" />
+              </div>
+              <p className="text-xl font-serif font-bold text-on-surface clay-title">{summary.investmentRange}</p>
+              <p className="text-[10px] text-secondary mt-1 clay-text italic">Not a final quotation.</p>
+            </div>
+
+            <div className="bg-surface-container/50 rounded-2xl p-4 border border-outline-variant/20">
+              <div className="flex items-center gap-1.5 text-secondary mb-2">
+                <Gauge size={13} />
+                <span className="text-[10px] font-bold uppercase tracking-wider clay-text">Project Complexity</span>
+              </div>
+              <p className="text-xl font-serif font-bold text-on-surface clay-title">{summary.complexity.level}</p>
+              <p className="text-[10px] text-secondary mt-1 clay-text leading-relaxed">{summary.complexity.meaning}</p>
+            </div>
+          </div>
+
+          {/* Suggested Features */}
+          <section>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-primary mb-3 clay-text">Suggested Features</h3>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              {summary.features.map((feature, i) => (
+                <li key={i} className="flex items-start gap-2 text-sm text-on-surface clay-text leading-snug">
+                  <CheckCircle2 size={15} className="text-primary shrink-0 mt-0.5" />
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* Suggested Delivery Team */}
+          <section>
+            <h3 className="text-xs font-bold uppercase tracking-wider text-primary mb-3 clay-text">Suggested Delivery Team</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {summary.team.map((member, i) => (
+                <div key={i} className="bg-surface-container/30 rounded-xl p-3.5 border border-outline-variant/15">
+                  <p className="font-semibold text-sm text-on-surface clay-text mb-1">{member.role}</p>
+                  <p className="text-xs text-secondary clay-text leading-relaxed">{member.reason}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Next Steps — 3 column inline */}
+          <section className="border-t border-outline-variant/30 pt-6">
+            <h3 className="text-sm font-bold text-on-surface mb-4 clay-text">Recommended Next Steps</h3>
+            <ol className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                { step: "01", title: "Review this summary", desc: "Ensure it aligns with your vision and project goals." },
+                { step: "02", title: "Schedule a consultation", desc: "Talk to an OpenXcell Solution Consultant at your convenience." },
+                { step: "03", title: "Receive a tailored proposal", desc: "After the consultation, we'll finalize the scope and cost." },
+              ].map(({ step, title, desc }) => (
+                <div key={step} className="flex gap-3">
+                  <span className="text-xl font-serif font-bold text-primary/25 clay-title shrink-0">{step}</span>
+                  <div>
+                    <p className="text-sm font-semibold text-on-surface clay-text mb-1">{title}</p>
+                    <p className="text-xs text-secondary clay-text leading-relaxed">{desc}</p>
                   </div>
-                ))}
-              </div>
-            </section>
+                </div>
+              ))}
+            </ol>
+          </section>
 
-          </div>
-
-          {/* Sidebar / Metrics Column */}
-          <div className="p-6 sm:p-8 bg-surface-container/30 space-y-8 flex flex-col justify-between">
-            
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-xs font-bold uppercase tracking-wider text-secondary mb-1 clay-text flex items-center gap-1.5">
-                  Estimated Timeline <Info size={12} className="opacity-50" />
-                </h3>
-                <p className="text-2xl font-serif font-bold text-on-surface clay-title">{summary.timeline}</p>
-                <p className="text-[10px] text-secondary mt-1 clay-text italic">Explicitly an estimate, subject to discovery phase.</p>
-              </div>
-
-              <div>
-                <h3 className="text-xs font-bold uppercase tracking-wider text-secondary mb-1 clay-text flex items-center gap-1.5">
-                  Estimated Investment <Info size={12} className="opacity-50" />
-                </h3>
-                <p className="text-2xl font-serif font-bold text-on-surface clay-title">{summary.investmentRange}</p>
-                <p className="text-[10px] text-secondary mt-1 clay-text italic">This is an estimated range, not a final quotation.</p>
-              </div>
-
-              <div>
-                <h3 className="text-xs font-bold uppercase tracking-wider text-secondary mb-1 clay-text">Project Complexity</h3>
-                <p className="text-lg font-semibold text-on-surface clay-text mb-1">{summary.complexity.level}</p>
-                <p className="text-xs text-secondary leading-relaxed clay-text">{summary.complexity.meaning}</p>
-              </div>
-            </div>
-
-            <div className="pt-6 border-t border-outline-variant/30">
-              <h3 className="text-sm font-bold text-on-surface mb-3 clay-text">Next Steps</h3>
-              <ol className="space-y-3 relative pl-4 border-l border-primary/20">
-                <li className="text-xs text-secondary clay-text relative">
-                  <div className="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-primary/20 border-2 border-surface" />
-                  <strong>Review this summary</strong> to ensure it aligns with your vision.
-                </li>
-                <li className="text-xs text-secondary clay-text relative">
-                  <div className="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-primary border-2 border-surface" />
-                  <strong className="text-on-surface">Schedule a consultation</strong> with our experts.
-                </li>
-                <li className="text-xs text-secondary clay-text relative">
-                  <div className="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-outline-variant border-2 border-surface" />
-                  <strong>During the consultation</strong>, we'll dive deep into your architecture and finalize the scope.
-                </li>
-              </ol>
-            </div>
-
-          </div>
         </div>
       </div>
 
+      {/* CTA */}
       <div className="mt-8 flex flex-col items-center text-center">
         <p className="text-sm text-secondary mb-4 clay-text max-w-lg">
           Your Project Summary will help our solution consultants understand your goals before your consultation.
         </p>
-        <button onClick={click} className="clay-btn px-8 py-3.5 text-base font-semibold flex items-center gap-2">
+        <button onClick={() => { success(); click(); }} className="clay-btn px-8 py-3.5 text-base font-semibold flex items-center gap-2">
           Continue to Let's Connect
           <ArrowRight size={16} />
         </button>
