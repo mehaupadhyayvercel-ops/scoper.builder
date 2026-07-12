@@ -75,7 +75,7 @@ export function SummaryScreen() {
                 <span className="text-[10px] font-bold uppercase tracking-wider clay-text">Estimated Timeline</span>
                 <Info size={11} className="opacity-40" />
               </div>
-              <p className="text-xl font-serif font-bold text-on-surface clay-title">{summary.timeline}</p>
+              <p className="text-lg font-bold text-on-surface leading-snug">{summary.timeline}</p>
               <p className="text-[10px] text-secondary mt-1 clay-text italic">Subject to discovery phase.</p>
             </div>
 
@@ -85,7 +85,7 @@ export function SummaryScreen() {
                 <span className="text-[10px] font-bold uppercase tracking-wider clay-text">Estimated Investment</span>
                 <Info size={11} className="opacity-40" />
               </div>
-              <p className="text-xl font-serif font-bold text-on-surface clay-title">{summary.investmentRange}</p>
+              <p className="text-lg font-bold text-on-surface leading-snug">{summary.investmentRange}</p>
               <p className="text-[10px] text-secondary mt-1 clay-text italic">Not a final quotation.</p>
             </div>
 
@@ -94,7 +94,7 @@ export function SummaryScreen() {
                 <Gauge size={13} />
                 <span className="text-[10px] font-bold uppercase tracking-wider clay-text">Project Complexity</span>
               </div>
-              <p className="text-xl font-serif font-bold text-on-surface clay-title">{summary.complexity.level}</p>
+              <p className="text-lg font-bold text-on-surface leading-snug">{summary.complexity.level}</p>
               <p className="text-[10px] text-secondary mt-1 clay-text leading-relaxed">{summary.complexity.meaning}</p>
             </div>
           </div>

@@ -70,8 +70,8 @@ Instructions:
 2. Recommended Solution: What OpenXcell recommends in plain terms.
 3. Why This Recommendation: Plain-language reasoning for why this solution fits.
 4. Suggested Features: Only list features that are highly relevant to this specific project.
-5. Estimated Timeline: Provide a realistic range based on their input.
-6. Estimated Investment: Provide a realistic cost range aligning with their budget preference.
+5. Estimated Timeline: Provide a short string (e.g., "3-6 Months"). MAX 5 WORDS. Do not write a paragraph.
+6. Estimated Investment: Provide a short cost range (e.g., "$40k - $75k"). MAX 5 WORDS. Do not write a paragraph.
 7. Suggested Delivery Team: List necessary roles and ONE line on why each is needed.
 8. Project Complexity: A label (Low, Medium, High) plus what that actually means for the user's project.
 
