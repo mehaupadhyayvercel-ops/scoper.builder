@@ -1,123 +1,33 @@
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import { useAppContext } from '../context/AppContext';
-import { useState, useEffect, type ReactNode, type CSSProperties } from 'react';
 import { Download, ArrowRight, CheckCircle2, Info } from 'lucide-react';
 import { useSound } from '../hooks/useSound';
 
-interface SummaryData {
-  recommendedSolution: string;
-  whyThisRecommendation: string;
-  features: string[];
-  complexity: { level: string; meaning: string };
-  timeline: string;
-  investmentRange: string;
-  team: { role: string; reason: string }[];
-}
-
-const FALLBACK_SUMMARY: SummaryData = {
-  recommendedSolution: "A custom web platform tailored to your business needs with modern architecture and scalable infrastructure.",
-  whyThisRecommendation: "This approach provides the most flexibility for your unique requirements while ensuring long-term scalability and security.",
-  features: [
-    "User Authentication & Role Management",
-    "Admin Dashboard & Analytics",
-    "Real-time Notifications",
-    "Payment Gateway Integration",
-    "REST API & Third-party Integrations",
-  ],
-  complexity: {
-    level: "Medium",
-    meaning: "This means your project involves standard integrations and multiple user roles, requiring a balanced approach to architecture and testing."
-  },
-  timeline: "14-18 weeks",
-  investmentRange: "₹20-35L",
-  team: [
-    { role: "Project Manager", reason: "To ensure smooth communication and delivery." },
-    { role: "UI/UX Designer", reason: "To create an intuitive and engaging user experience." },
-    { role: "Full-Stack Developer", reason: "To build both the frontend interfaces and backend logic." },
-    { role: "QA Engineer", reason: "To thoroughly test the application for bugs and usability." },
-  ]
-};
-
-const LOADING_STEPS = [
-  "Understanding your business...",
-  "Organizing your requirements...",
-  "Identifying the right solution...",
-  "Preparing your summary...",
-  "Almost ready..."
-];
-
 export function SummaryScreen() {
-  const { data } = useAppContext();
-  const { click, success } = useSound();
-  const [summary, setSummary] = useState<SummaryData | null>(null);
-  const [aiLoading, setAiLoading] = useState(true);
-  const [loadingStepIndex, setLoadingStepIndex] = useState(0);
+  const { summaryData, click } = useAppContext();
+  const { success } = useSound();
 
-  useEffect(() => {
-    let stepInterval: ReturnType<typeof setInterval>;
-    if (aiLoading) {
-      stepInterval = setInterval(() => {
-        setLoadingStepIndex((prev) => (prev < LOADING_STEPS.length - 1 ? prev + 1 : prev));
-      }, 3000);
-    }
-    return () => clearInterval(stepInterval);
-  }, [aiLoading]);
+  // Play success chime once on mount since data is already ready
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const summary = summaryData as {
+    recommendedSolution: string;
+    whyThisRecommendation: string;
+    features: string[];
+    complexity: { level: string; meaning: string };
+    timeline: string;
+    investmentRange: string;
+    team: { role: string; reason: string }[];
+  } | null;
 
-  useEffect(() => {
-    async function fetchSummary() {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 58000);
-      try {
-        const response = await fetch('/api/generate-summary', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ data }),
-          signal: controller.signal,
-        });
-        if (!response.ok) throw new Error('API Error');
-        const result = await response.json();
-        setSummary(result);
-        success(); // 🎵 play chime when AI data arrives
-      } catch {
-        setSummary(FALLBACK_SUMMARY); // only show fallback if API completely fails
-      } finally {
-        clearTimeout(timeoutId);
-        setAiLoading(false);
-      }
-    }
-    fetchSummary();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  if (aiLoading || !summary) {
+  if (!summary) {
     return (
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="w-full flex flex-col items-center justify-center min-h-[60vh] gap-6"
+        className="w-full flex flex-col items-center justify-center min-h-[60vh] gap-4"
       >
         <div className="w-12 h-12 rounded-full border-4 border-outline-variant/30 border-t-primary animate-spin" />
-        <div className="h-6 relative w-64 text-center overflow-hidden">
-          <AnimatePresence mode="popLayout">
-            <motion.p
-              key={loadingStepIndex}
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -20, opacity: 0 }}
-              transition={{ duration: 0.4 }}
-              className="text-on-surface font-medium clay-text absolute inset-0"
-            >
-              {LOADING_STEPS[loadingStepIndex]}
-            </motion.p>
-          </AnimatePresence>
-        </div>
-        <div className="w-48 h-1.5 bg-outline-variant/20 rounded-full overflow-hidden mt-2">
-          <motion.div 
-            className="h-full bg-primary"
-            initial={{ width: '0%' }}
-            animate={{ width: `${((loadingStepIndex + 1) / LOADING_STEPS.length) * 100}%` }}
-            transition={{ duration: 0.5 }}
-          />
-        </div>
+        <p className="text-secondary clay-text text-sm">Preparing your summary...</p>
       </motion.div>
     );
   }

@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { useAppContext } from '../context/AppContext';
 import { useState } from 'react';
 import { useSound } from '../hooks/useSound';
+import { Sparkles } from 'lucide-react';
 
 const PROJECT_TYPES = [
   'New Product', 
@@ -14,6 +15,17 @@ const PROJECT_TYPES = [
 const END_USERS = [
   'Customers', 'Employees', 'Vendors', 'Students', 'Patients', 'Administrators', 'Other'
 ];
+
+const STARTER_SENTENCES: Record<string, string> = {
+  'Marketplace': "I'm building a marketplace platform where buyers and sellers can connect, list products, and transact securely online. The goal is to reduce friction between supply and demand in our industry.",
+  'Healthcare': "I'm building a healthcare platform where patients can book appointments, consult doctors remotely, and access their medical history in one place. The goal is to reduce administrative burden for clinics.",
+  'E-commerce': "I'm building an e-commerce store where customers can browse products, place orders, and track deliveries. The goal is to increase sales by providing a seamless online shopping experience.",
+  'Internal Tool': "I'm building an internal tool to help my team manage workflows, track progress, and reduce manual data entry. The goal is to improve operational efficiency across departments.",
+  'Customer Portal': "I'm building a customer portal where our clients can log in, view their account details, submit requests, and track the status of ongoing work. The goal is to reduce support overhead.",
+  'Learning Platform': "I'm building a learning platform where students can access course content, complete assignments, and track their progress. The goal is to make education more accessible and engaging.",
+  'CRM / Sales Tool': "I'm building a CRM tool to help our sales team manage leads, track follow-ups, and forecast revenue. The goal is to give our team a single source of truth for customer relationships.",
+  'Field Service App': "I'm building a field service application where technicians can receive job assignments, update job status, and capture signatures on-site. The goal is to eliminate paper-based processes.",
+};
 
 export function ProjectDetailsScreen() {
   const { data, updateData, goNext, goBack } = useAppContext();
@@ -41,6 +53,15 @@ export function ProjectDetailsScreen() {
     }
     click();
     goNext('preferences');
+  };
+
+  const applyStarterSentence = (label: string) => {
+    click();
+    const sentence = STARTER_SENTENCES[label];
+    if (sentence) {
+      updateData({ projectDescription: sentence });
+      setError('');
+    }
   };
 
   return (
@@ -113,7 +134,7 @@ export function ProjectDetailsScreen() {
 
           <textarea 
             className={`clay-input w-full p-4 text-base min-h-[160px] resize-y ${error ? 'border-error' : ''}`}
-            placeholder="e.g. We want to build an internal tool that helps our operations team automatically track..."
+            placeholder="Describe what you want to build in plain English — there are no wrong answers here."
             value={data.projectDescription}
             onChange={(e) => {
               updateData({ projectDescription: e.target.value });
@@ -121,6 +142,25 @@ export function ProjectDetailsScreen() {
             }}
           />
           {error && <p className="text-error text-sm mt-2">{error}</p>}
+
+          {/* Starter sentence inspiration cards */}
+          <div className="mt-4">
+            <p className="text-xs font-semibold text-secondary uppercase tracking-wider mb-2 clay-text flex items-center gap-1.5">
+              <Sparkles size={12} className="text-primary" />
+              Need a starting point? Click a card to get started:
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {Object.keys(STARTER_SENTENCES).map((label) => (
+                <button
+                  key={label}
+                  onClick={() => applyStarterSentence(label)}
+                  className="px-3 py-1.5 rounded-full border border-outline-variant/40 bg-surface text-xs text-secondary hover:bg-primary/5 hover:text-primary hover:border-primary/30 transition-colors clay-text shadow-[inset_2px_2px_4px_rgba(255,255,255,0.7),inset_-2px_-2px_4px_rgba(209,205,199,0.3)]"
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
 
         <div className="mt-10 pt-6 border-t border-outline-variant/30 flex items-center justify-between">

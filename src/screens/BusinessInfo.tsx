@@ -25,12 +25,10 @@ export function BusinessInfoScreen() {
     if (!data.business.email) newErrors.email = 'Please provide an email address';
     else if (!emailRegex.test(data.business.email)) newErrors.email = 'Invalid email format';
     if (!data.business.companyName) newErrors.companyName = 'Company name is required';
-    if (!data.business.country) newErrors.country = 'Please select a country';
     if (!data.business.industry) newErrors.industry = 'Please select an industry';
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
-      // In a real app, we might focus the first invalid field here
       return;
     }
 
@@ -90,13 +88,13 @@ export function BusinessInfoScreen() {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-semibold text-on-surface-variant uppercase tracking-wider clay-text">Country *</label>
+            <label className="text-sm font-semibold text-on-surface-variant uppercase tracking-wider clay-text">Country <span className="text-secondary font-normal text-xs">(Optional)</span></label>
             <select 
-              className={`clay-input w-full p-3.5 text-base appearance-none ${errors.country ? 'border-error' : ''}`}
+              className="clay-input w-full p-3.5 text-base appearance-none"
               value={data.business.country}
               onChange={(e) => handleChange('country', e.target.value)}
             >
-              <option value="" disabled>Select country</option>
+              <option value="">Select country</option>
               <option value="US">United States</option>
               <option value="UK">United Kingdom</option>
               <option value="CA">Canada</option>
@@ -104,7 +102,6 @@ export function BusinessInfoScreen() {
               <option value="IN">India</option>
               <option value="Other">Other</option>
             </select>
-            {errors.country && <p className="text-error text-xs">{errors.country}</p>}
           </div>
 
           <div className="space-y-2">
@@ -127,21 +124,7 @@ export function BusinessInfoScreen() {
             {errors.industry && <p className="text-error text-xs">{errors.industry}</p>}
           </div>
 
-          <div className="space-y-2 sm:col-span-2">
-            <label className="text-sm font-semibold text-on-surface-variant uppercase tracking-wider clay-text">Company Size (Optional)</label>
-            <select 
-              className="clay-input w-full p-3.5 text-base appearance-none"
-              value={data.business.companySize}
-              onChange={(e) => handleChange('companySize', e.target.value)}
-            >
-              <option value="" disabled>Select number of employees</option>
-              <option value="1-10">1 - 10</option>
-              <option value="11-50">11 - 50</option>
-              <option value="51-200">51 - 200</option>
-              <option value="201-500">201 - 500</option>
-              <option value="500+">500+</option>
-            </select>
-          </div>
+
         </div>
 
         <div className="mt-10 pt-6 border-t border-outline-variant/30 flex items-center justify-between">

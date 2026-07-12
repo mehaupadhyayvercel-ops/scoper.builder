@@ -4,9 +4,8 @@ export interface BusinessInfo {
   fullName: string;
   email: string;
   companyName: string;
-  country: string;
+  country?: string;
   industry: string;
-  companySize: string;
 }
 
 export interface Preferences {
@@ -31,7 +30,6 @@ export const INITIAL_DATA: AssessmentData = {
     companyName: '',
     country: '',
     industry: '',
-    companySize: ''
   },
   projectDescription: '',
   projectTypes: [],

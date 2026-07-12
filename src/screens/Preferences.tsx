@@ -2,9 +2,9 @@ import { motion } from 'motion/react';
 import { useAppContext } from '../context/AppContext';
 import { useSound } from '../hooks/useSound';
 
-const PLATFORMS = ['Web', 'Android', 'iOS', 'Desktop'];
-const CAPABILITIES = ['Authentication', 'Dashboard', 'Reports', 'Notifications', 'Payments', 'Analytics', 'Admin Panel', 'Chat', 'AI Features'];
-const TIMELINES = ['ASAP', '1–3 Months', '3–6 Months', 'Flexible'];
+const PLATFORMS = ['Web Application', 'Mobile App', 'Both Web & Mobile', 'Not Sure Yet'];
+const CAPABILITIES = ['User Accounts', 'Payments', 'Analytics', 'Notifications', 'Reports', 'Messaging', 'AI Features', 'Admin Panel'];
+const TIMELINES = ['Flexible', 'Within 3 Months', '3–6 Months', '6+ Months'];
 const BUDGETS = ['Under ₹10L', '₹10–25L', '₹25–50L', '₹50L+'];
 
 export function PreferencesScreen() {
