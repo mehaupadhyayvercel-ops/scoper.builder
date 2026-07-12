@@ -77,8 +77,8 @@ Instructions:
 2. Recommended Solution: What OpenXcell recommends in plain terms.
 3. Why This Recommendation: Plain-language reasoning for why this solution fits.
 4. Suggested Features: Only list features that are highly relevant to this specific project.
-5. Estimated Timeline: Provide a realistic range based on their input.
-6. Estimated Investment: Provide a realistic cost range aligning with their budget preference.
+5. Estimated Timeline: Provide a short string (e.g., "3-6 Months"). MAX 5 WORDS. Do not write a paragraph.
+6. Estimated Investment: Provide a short cost range (e.g., "$40k - $75k"). MAX 5 WORDS. Do not write a paragraph.
 7. Suggested Delivery Team: List necessary roles and ONE line on why each is needed.
 8. Project Complexity: A label (Low, Medium, High) plus what that actually means for the user's project.
 
@@ -124,6 +124,34 @@ Return ONLY a JSON object with this exact schema (no markdown, no code fences):
         .trim();
 
       const summaryData = JSON.parse(content);
+
+      try {
+        const { createClient } = await import('@supabase/supabase-js');
+        const supabaseUrl = process.env.SUPABASE_URL || 'https://andpelfahbjxsudpiqlo.supabase.co';
+        const supabaseKey = process.env.SUPABASE_SECRET_KEY; 
+        
+        if (supabaseKey) {
+          const supabase = createClient(supabaseUrl, supabaseKey);
+          await supabase.from('leads').insert({
+            full_name: data.business.fullName,
+            email: data.business.email,
+            company_name: data.business.companyName,
+            industry: data.business.industry,
+            project_description: data.projectDescription,
+            platforms: data.preferences.platforms || [],
+            capabilities: data.preferences.capabilities || [],
+            timeline_preference: data.preferences.timeline,
+            budget_preference: data.preferences.budget,
+            ai_summary: summaryData
+          });
+          console.log("✅ Lead successfully saved to Supabase.");
+        } else {
+          console.warn("⚠️ SUPABASE_SECRET_KEY not found in .env. Lead not saved to Supabase.");
+        }
+      } catch (dbError) {
+        console.error("❌ Failed to save lead to Supabase:", dbError);
+      }
+
       return res.json(summaryData);
     } catch (error) {
       console.error("AI generation error — returning fallback:", error);
