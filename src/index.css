@@ -5,32 +5,32 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Source Serif 4", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   
-  /* Dark navy / slate backgrounds */
-  --color-surface: #f0f2f8;
-  --color-surface-dim: #c8cede;
-  --color-surface-bright: #f7f8fc;
+  /* Grayscale / Silver backgrounds */
+  --color-surface: #f3f4f6;
+  --color-surface-dim: #d1d5db;
+  --color-surface-bright: #f9fafb;
   --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low: #eaecf4;
-  --color-surface-container: #e2e5f0;
-  --color-surface-container-high: #d8dce9;
-  --color-surface-container-highest: #cdd2e2;
-  --color-on-surface: #0f1629;
-  --color-on-surface-variant: #384566;
-  --color-outline: #667099;
-  --color-outline-variant: #b8c0d8;
+  --color-surface-container-low: #f3f4f6;
+  --color-surface-container: #e5e7eb;
+  --color-surface-container-high: #d1d5db;
+  --color-surface-container-highest: #9ca3af;
+  --color-on-surface: #111827;
+  --color-on-surface-variant: #374151;
+  --color-outline: #6b7280;
+  --color-outline-variant: #9ca3af;
   
-  /* Blue primary */
-  --color-primary: #2952cc;
+  /* Black primary */
+  --color-primary: #111827;
   --color-on-primary: #ffffff;
-  --color-primary-container: #3a63e0;
-  --color-on-primary-container: #eef2ff;
-  --color-secondary: #4a5580;
+  --color-primary-container: #374151;
+  --color-on-primary-container: #f9fafb;
+  --color-secondary: #4b5563;
   --color-on-secondary: #ffffff;
   --color-error: #ba1a1a;
   --color-on-error: #ffffff;
   
-  --shadow-ambient: 0px 2px 10px rgba(20, 30, 70, 0.06);
-  --shadow-floating: 0px 10px 30px rgba(20, 30, 70, 0.10);
+  --shadow-ambient: 0px 2px 10px rgba(0, 0, 0, 0.04);
+  --shadow-floating: 0px 10px 30px rgba(0, 0, 0, 0.08);
 }
 
 body {
@@ -42,29 +42,29 @@ body {
 .clay-card {
   background: #ffffff;
   border-radius: 2rem;
-  box-shadow: 12px 12px 28px rgba(180, 190, 220, 0.5), -12px -12px 28px rgba(255, 255, 255, 0.95), inset 3px 3px 6px rgba(255, 255, 255, 0.85), inset -3px -3px 6px rgba(180, 190, 220, 0.2);
+  box-shadow: 12px 12px 28px rgba(200, 200, 200, 0.5), -12px -12px 28px rgba(255, 255, 255, 0.95), inset 3px 3px 6px rgba(255, 255, 255, 0.85), inset -3px -3px 6px rgba(200, 200, 200, 0.2);
   border: 1.5px solid rgba(255, 255, 255, 0.8);
   transition: all 0.3s ease;
 }
 
 .clay-input {
-  background: #eaecf4;
+  background: #e5e7eb;
   border-radius: 1rem;
-  box-shadow: inset 5px 5px 10px rgba(180, 190, 220, 0.55), inset -5px -5px 10px rgba(255, 255, 255, 1);
+  box-shadow: inset 5px 5px 10px rgba(200, 200, 200, 0.55), inset -5px -5px 10px rgba(255, 255, 255, 1);
   border: 2px solid transparent;
   outline: none;
   transition: all 0.3s ease;
 }
 
 .clay-input:focus {
-  box-shadow: inset 4px 4px 8px rgba(180, 190, 220, 0.45), inset -4px -4px 8px rgba(255, 255, 255, 0.9);
+  box-shadow: inset 4px 4px 8px rgba(200, 200, 200, 0.45), inset -4px -4px 8px rgba(255, 255, 255, 0.9);
   border-color: var(--color-primary);
 }
 
 .clay-btn {
   background: var(--color-primary);
   border-radius: 1rem;
-  box-shadow: 6px 6px 14px rgba(41, 82, 204, 0.35), -4px -4px 12px rgba(255, 255, 255, 0.85), inset 2px 2px 5px rgba(255, 255, 255, 0.25), inset -2px -2px 5px rgba(0, 0, 0, 0.15);
+  box-shadow: 6px 6px 14px rgba(0, 0, 0, 0.25), -4px -4px 12px rgba(255, 255, 255, 0.85), inset 2px 2px 5px rgba(255, 255, 255, 0.25), inset -2px -2px 5px rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.15);
   color: white;
   transition: all 0.2s ease;
@@ -72,18 +72,18 @@ body {
 
 .clay-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 8px 8px 20px rgba(41, 82, 204, 0.4), -6px -6px 16px rgba(255, 255, 255, 0.9), inset 2px 2px 5px rgba(255, 255, 255, 0.25);
+  box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.3), -6px -6px 16px rgba(255, 255, 255, 0.9), inset 2px 2px 5px rgba(255, 255, 255, 0.25);
 }
 
 .clay-btn:active {
   transform: translateY(1px);
-  box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.2), inset -4px -4px 10px rgba(255, 255, 255, 0.15);
+  box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.4), inset -4px -4px 10px rgba(255, 255, 255, 0.15);
 }
 
 .clay-btn-secondary {
-  background: #f0f2f8;
+  background: #f3f4f6;
   border-radius: 1rem;
-  box-shadow: 6px 6px 14px rgba(180, 190, 220, 0.45), -6px -6px 14px rgba(255, 255, 255, 0.9), inset 2px 2px 5px rgba(255, 255, 255, 0.8), inset -2px -2px 5px rgba(180, 190, 220, 0.2);
+  box-shadow: 6px 6px 14px rgba(200, 200, 200, 0.45), -6px -6px 14px rgba(255, 255, 255, 0.9), inset 2px 2px 5px rgba(255, 255, 255, 0.8), inset -2px -2px 5px rgba(200, 200, 200, 0.2);
   border: 1.5px solid rgba(255, 255, 255, 0.7);
   color: var(--color-on-surface);
   transition: all 0.2s ease;
@@ -91,12 +91,12 @@ body {
 
 .clay-btn-secondary:hover {
   transform: translateY(-2px);
-  box-shadow: 8px 8px 18px rgba(180, 190, 220, 0.5), -8px -8px 18px rgba(255, 255, 255, 0.95);
+  box-shadow: 8px 8px 18px rgba(200, 200, 200, 0.5), -8px -8px 18px rgba(255, 255, 255, 0.95);
 }
 
 .clay-btn-secondary:active {
   transform: translateY(1px);
-  box-shadow: inset 4px 4px 10px rgba(180, 190, 220, 0.3), inset -4px -4px 10px rgba(255, 255, 255, 0.8);
+  box-shadow: inset 4px 4px 10px rgba(200, 200, 200, 0.3), inset -4px -4px 10px rgba(255, 255, 255, 0.8);
 }
 
 .clay-text {
@@ -109,7 +109,7 @@ body {
 
 .clay-checkbox {
   appearance: none;
-  background-color: #eaecf4;
+  background-color: #e5e7eb;
   margin: 0;
   font: inherit;
   width: 1.25em;
@@ -117,7 +117,7 @@ body {
   border-radius: 0.25em;
   display: grid;
   place-content: center;
-  box-shadow: inset 2px 2px 4px rgba(180, 190, 220, 0.5), inset -2px -2px 4px rgba(255, 255, 255, 0.9);
+  box-shadow: inset 2px 2px 4px rgba(200, 200, 200, 0.5), inset -2px -2px 4px rgba(255, 255, 255, 0.9);
   transition: all 0.2s ease;
 }
 
