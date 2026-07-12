@@ -1,13 +1,14 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { useAppContext } from '../context/AppContext';
 import { useEffect, useState, useRef } from 'react';
+import { Building2, ClipboardList, Search, Lightbulb, Rocket } from 'lucide-react';
 
 const STEPS = [
-  { label: "Understanding your business...", icon: "🏢" },
-  { label: "Organizing your requirements...", icon: "📋" },
-  { label: "Reviewing your project scope...", icon: "🔍" },
-  { label: "Preparing your recommendations...", icon: "✨" },
-  { label: "Almost ready...", icon: "🚀" },
+  { label: "Understanding your business...", Icon: Building2 },
+  { label: "Organizing your requirements...", Icon: ClipboardList },
+  { label: "Reviewing your project scope...", Icon: Search },
+  { label: "Preparing your recommendations...", Icon: Lightbulb },
+  { label: "Almost ready...", Icon: Rocket },
 ];
 
 const FALLBACK_SUMMARY = {
@@ -84,16 +85,16 @@ export function ProcessingScreen() {
       exit={{ opacity: 0 }}
       className="w-full flex flex-col items-center justify-center min-h-[70vh] text-center px-6"
     >
-      {/* Animated icon */}
+      {/* Animated step icon */}
       <motion.div
         key={stepIndex}
         initial={{ scale: 0.7, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.7, opacity: 0 }}
         transition={{ duration: 0.4, type: 'spring', stiffness: 200 }}
-        className="text-6xl mb-8 select-none"
+        className="w-20 h-20 rounded-2xl bg-primary/8 border border-primary/15 flex items-center justify-center mb-8 text-primary shadow-[inset_2px_2px_6px_rgba(255,255,255,0.8),inset_-2px_-2px_6px_rgba(209,205,199,0.3)]"
       >
-        {STEPS[stepIndex].icon}
+        {(() => { const { Icon } = STEPS[stepIndex]; return <Icon size={36} strokeWidth={1.5} />; })()}
       </motion.div>
 
       {/* Spinning ring */}
