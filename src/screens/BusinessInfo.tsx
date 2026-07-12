@@ -46,8 +46,8 @@ export function BusinessInfoScreen() {
       className="w-full max-w-2xl mx-auto"
     >
       <div className="mb-6 text-center">
-        <h2 className="font-serif text-3xl sm:text-4xl font-semibold mb-3 text-on-surface clay-title">Business Information</h2>
-        <p className="text-secondary text-lg clay-text">Let's start by getting to know your organization.</p>
+        <h2 className="font-serif text-3xl sm:text-4xl font-semibold mb-3 text-on-surface clay-title">Let's get introduced</h2>
+        <p className="text-secondary text-lg clay-text">Just the essentials so we know who we're talking to.</p>
       </div>
 
       <div className="clay-card p-5 sm:p-6">
@@ -73,6 +73,7 @@ export function BusinessInfoScreen() {
               value={data.business.email}
               onChange={(e) => handleChange('email', e.target.value)}
             />
+            <p className="text-[10px] text-secondary clay-text mt-1 italic">Used to send your personalized Project Summary.</p>
             {errors.email && <p className="text-error text-xs">{errors.email}</p>}
           </div>
 
@@ -122,6 +123,7 @@ export function BusinessInfoScreen() {
               <option value="Logistics">Logistics</option>
               <option value="Other">Other</option>
             </select>
+            <p className="text-[10px] text-secondary clay-text mt-1 italic">Helps us tailor your tech recommendations.</p>
             {errors.industry && <p className="text-error text-xs">{errors.industry}</p>}
           </div>
 

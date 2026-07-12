@@ -23,28 +23,34 @@ export function WelcomeScreen() {
       </h1>
       
       <p className="text-lg text-secondary max-w-2xl mb-4 leading-relaxed clay-text">
-        Answer a few questions about your business and project. We'll prepare a personalized project summary before you connect with our solution experts.
+        Why spend the next 3-5 minutes here? Because before you talk to a single salesperson, you deserve clarity on what you need, how long it will take, and what it might cost.
       </p>
       
       <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface-container-high text-sm font-medium text-secondary mb-12 clay-text">
         <Clock size={16} />
-        Estimated completion time: Approximately 3 minutes
+        Estimated completion time: 3–5 minutes
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full mb-12">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-4xl mx-auto mb-10">
         {[
-          { icon: Target, label: "Recommended Solution" },
-          { icon: FileText, label: "Suggested Features" },
-          { icon: Clock, label: "Estimated Timeline" },
-          { icon: BarChart3, label: "Investment Range" },
+          { icon: Target, label: "Understand the right solution" },
+          { icon: BarChart3, label: "Get an estimated timeline & investment range" },
+          { icon: FileText, label: "Receive a personalized project summary" },
         ].map((item, i) => (
-          <div key={i} className="clay-card p-4 flex flex-col items-center text-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center">
-              <item.icon size={20} />
+          <div key={i} className="clay-card p-5 flex flex-col items-center text-center gap-3">
+            <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-1">
+              <item.icon size={24} />
             </div>
-            <span className="text-sm font-medium text-on-surface clay-text">{item.label}</span>
+            <span className="text-sm font-medium text-on-surface clay-text leading-snug">{item.label}</span>
           </div>
         ))}
+      </div>
+
+      <div className="flex items-center justify-center w-full mb-12">
+        <p className="text-sm text-secondary clay-text font-medium flex items-center gap-2 flex-wrap justify-center">
+          <span className="uppercase tracking-wider text-[10px] text-primary">What happens next:</span>
+          Business Info <span className="text-outline-variant">→</span> Project Details <span className="text-outline-variant">→</span> Preferences <span className="text-outline-variant">→</span> Your Summary
+        </p>
       </div>
 
       <div className="flex flex-col sm:flex-row items-center gap-4">

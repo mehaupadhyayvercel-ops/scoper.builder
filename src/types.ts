@@ -19,6 +19,8 @@ export interface Preferences {
 export interface AssessmentData {
   business: BusinessInfo;
   projectDescription: string;
+  projectTypes: string[];
+  endUsers: string[];
   preferences: Preferences;
 }
 
@@ -32,6 +34,8 @@ export const INITIAL_DATA: AssessmentData = {
     companySize: ''
   },
   projectDescription: '',
+  projectTypes: [],
+  endUsers: [],
   preferences: {
     platforms: [],
     capabilities: [],
