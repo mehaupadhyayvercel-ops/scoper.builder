@@ -125,6 +125,17 @@ export function SummaryScreen() {
             </div>
           </section>
 
+          {/* Disclaimer */}
+          <div className="bg-surface-container/40 border border-outline-variant/25 rounded-2xl p-4 flex gap-3 items-start">
+            <div className="w-4 h-4 rounded-full bg-outline-variant/40 flex items-center justify-center shrink-0 mt-0.5">
+              <Info size={10} className="text-secondary" />
+            </div>
+            <p className="text-[11px] text-secondary clay-text leading-relaxed">
+              <strong className="text-on-surface-variant">Preliminary Assessment Disclaimer: </strong>
+              This document is a preliminary project assessment intended to support the consultation process. It is not a final quotation, binding proposal, or project commitment. All timelines, investment figures, and team compositions are indicative estimates only and are subject to change following a detailed discovery session with an OpenXcell Solution Consultant.
+            </p>
+          </div>
+
           {/* Next Steps — 3 column inline */}
           <section className="border-t border-outline-variant/30 pt-6">
             <h3 className="text-sm font-bold text-on-surface mb-4 clay-text">Recommended Next Steps</h3>
