@@ -164,7 +164,7 @@ export function SummaryScreen() {
         <p className="text-sm text-secondary mb-4 clay-text max-w-lg">
           Your Project Summary will help our solution consultants understand your goals before your consultation.
         </p>
-        <button onClick={() => { success(); click(); }} className="clay-btn px-8 py-3.5 text-base font-semibold flex items-center gap-2">
+        <button onClick={() => { success(); click(); window.open('https://www.openxcell.com/contact-us/', '_blank'); }} className="clay-btn px-8 py-3.5 text-base font-semibold flex items-center gap-2">
           Continue to Let's Connect
           <ArrowRight size={16} />
         </button>

@@ -10,7 +10,14 @@ import { SummaryScreen } from './screens/Summary';
 import { AnimatePresence } from 'motion/react';
 import { Search, Menu, X } from 'lucide-react';
 
-const NAV_LINKS = ['Services', 'Platforms', 'Industry', 'Our Work', 'About', 'Excellence'];
+const NAV_LINKS = [
+  { label: 'Services', url: 'https://www.openxcell.com/services/' },
+  { label: 'Platforms', url: 'https://www.openxcell.com/software-development/' },
+  { label: 'Industry', url: 'https://www.openxcell.com/industries/' },
+  { label: 'Our Work', url: 'https://www.openxcell.com/work/' },
+  { label: 'About', url: 'https://www.openxcell.com/about-us/' },
+  { label: 'Excellence', url: 'https://www.openxcell.com/engagement-models/' }
+];
 
 function AppContent() {
   const { currentStep } = useAppContext();
@@ -23,7 +30,7 @@ function AppContent() {
         <div className="max-w-[1400px] mx-auto w-full flex items-center justify-between">
           
           {/* Logo */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 cursor-pointer" onClick={() => window.location.href = 'https://www.openxcell.com/'}>
             <div className="w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center font-serif font-bold text-xl leading-none shadow-[inset_1px_1px_2px_rgba(255,255,255,0.4),inset_-1px_-1px_2px_rgba(0,0,0,0.2)] clay-title">
               O
             </div>
@@ -34,21 +41,21 @@ function AppContent() {
           <div className="hidden lg:flex items-center gap-6">
             <nav className="flex items-center gap-6 mr-4">
               {NAV_LINKS.map(link => (
-                <a key={link} href="#" className="text-sm font-semibold text-on-surface hover:text-primary transition-colors clay-text">
-                  {link}
+                <a key={link.label} href={link.url} target="_blank" rel="noreferrer" className="text-sm font-semibold text-on-surface hover:text-primary transition-colors clay-text">
+                  {link.label}
                 </a>
               ))}
             </nav>
             
             {/* CTAs strictly ordered as per UX brief */}
             <div className="flex items-center gap-3">
-              <button className="clay-btn-secondary px-5 py-2.5 text-sm font-bold">
+              <button onClick={() => window.location.reload()} className="clay-btn-secondary px-5 py-2.5 text-sm font-bold">
                 Start Project Assessment
               </button>
-              <button className="clay-btn px-5 py-2.5 text-sm font-bold">
+              <button onClick={() => window.open('https://www.openxcell.com/contact-us/', '_blank')} className="clay-btn px-5 py-2.5 text-sm font-bold">
                 Let's Connect
               </button>
-              <button className="ml-2 p-2 text-on-surface hover:text-primary transition-colors">
+              <button onClick={() => window.open('https://www.openxcell.com/contact-us/', '_blank')} className="ml-2 p-2 text-on-surface hover:text-primary transition-colors">
                 <Search size={20} />
               </button>
             </div>
@@ -56,7 +63,7 @@ function AppContent() {
 
           {/* Mobile Menu Toggle */}
           <div className="lg:hidden flex items-center gap-4">
-             <button className="p-2 text-on-surface hover:text-primary transition-colors">
+             <button onClick={() => window.open('https://www.openxcell.com/contact-us/', '_blank')} className="p-2 text-on-surface hover:text-primary transition-colors">
                <Search size={20} />
              </button>
              <button 
@@ -74,17 +81,17 @@ function AppContent() {
         <div className="lg:hidden absolute top-20 left-0 w-full bg-surface border-b border-outline-variant/20 shadow-lg z-40 p-6 flex flex-col gap-6">
           <div className="flex flex-col gap-4">
             {/* Mobile CTAs strictly ordered as per UX brief */}
-            <button className="clay-btn-secondary w-full py-3 text-sm font-bold">
+            <button onClick={() => { window.location.reload(); setMobileMenuOpen(false); }} className="clay-btn-secondary w-full py-3 text-sm font-bold">
               Start Project Assessment
             </button>
-            <button className="clay-btn w-full py-3 text-sm font-bold">
+            <button onClick={() => { window.open('https://www.openxcell.com/contact-us/', '_blank'); setMobileMenuOpen(false); }} className="clay-btn w-full py-3 text-sm font-bold">
               Let's Connect
             </button>
           </div>
           <nav className="flex flex-col gap-4 border-t border-outline-variant/10 pt-4">
             {NAV_LINKS.map(link => (
-              <a key={link} href="#" className="text-base font-semibold text-on-surface hover:text-primary transition-colors clay-text">
-                {link}
+              <a key={link.label} href={link.url} target="_blank" rel="noreferrer" className="text-base font-semibold text-on-surface hover:text-primary transition-colors clay-text">
+                {link.label}
               </a>
             ))}
           </nav>
