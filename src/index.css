@@ -5,29 +5,32 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Source Serif 4", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   
-  --color-surface: #fbf9f5;
-  --color-surface-dim: #dbdad6;
-  --color-surface-bright: #fbf9f5;
+  /* Dark navy / slate backgrounds */
+  --color-surface: #f0f2f8;
+  --color-surface-dim: #c8cede;
+  --color-surface-bright: #f7f8fc;
   --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low: #f5f3ef;
-  --color-surface-container: #efeeea;
-  --color-surface-container-high: #eae8e4;
-  --color-surface-container-highest: #e4e2de;
-  --color-on-surface: #1b1c1a;
-  --color-on-surface-variant: #53433d;
-  --color-outline: #86736c;
-  --color-outline-variant: #d8c2b9;
-  --color-primary: #8b4b2d;
+  --color-surface-container-low: #eaecf4;
+  --color-surface-container: #e2e5f0;
+  --color-surface-container-high: #d8dce9;
+  --color-surface-container-highest: #cdd2e2;
+  --color-on-surface: #0f1629;
+  --color-on-surface-variant: #384566;
+  --color-outline: #667099;
+  --color-outline-variant: #b8c0d8;
+  
+  /* Blue primary */
+  --color-primary: #2952cc;
   --color-on-primary: #ffffff;
-  --color-primary-container: #a86343;
-  --color-on-primary-container: #fffbff;
-  --color-secondary: #635d5a;
+  --color-primary-container: #3a63e0;
+  --color-on-primary-container: #eef2ff;
+  --color-secondary: #4a5580;
   --color-on-secondary: #ffffff;
   --color-error: #ba1a1a;
   --color-on-error: #ffffff;
   
-  --shadow-ambient: 0px 2px 10px rgba(45, 41, 38, 0.05);
-  --shadow-floating: 0px 10px 30px rgba(45, 41, 38, 0.08);
+  --shadow-ambient: 0px 2px 10px rgba(20, 30, 70, 0.06);
+  --shadow-floating: 0px 10px 30px rgba(20, 30, 70, 0.10);
 }
 
 body {
@@ -39,29 +42,29 @@ body {
 .clay-card {
   background: #ffffff;
   border-radius: 2rem;
-  box-shadow: 12px 12px 24px rgba(209, 205, 199, 0.45), -12px -12px 24px rgba(255, 255, 255, 0.9), inset 3px 3px 6px rgba(255, 255, 255, 0.8), inset -3px -3px 6px rgba(209, 205, 199, 0.25);
-  border: 2px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 12px 12px 28px rgba(180, 190, 220, 0.5), -12px -12px 28px rgba(255, 255, 255, 0.95), inset 3px 3px 6px rgba(255, 255, 255, 0.85), inset -3px -3px 6px rgba(180, 190, 220, 0.2);
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
   transition: all 0.3s ease;
 }
 
 .clay-input {
-  background: #f4f1ed;
+  background: #eaecf4;
   border-radius: 1rem;
-  box-shadow: inset 6px 6px 12px rgba(209, 205, 199, 0.6), inset -6px -6px 12px rgba(255, 255, 255, 1);
+  box-shadow: inset 5px 5px 10px rgba(180, 190, 220, 0.55), inset -5px -5px 10px rgba(255, 255, 255, 1);
   border: 2px solid transparent;
   outline: none;
   transition: all 0.3s ease;
 }
 
 .clay-input:focus {
-  box-shadow: inset 4px 4px 8px rgba(209, 205, 199, 0.5), inset -4px -4px 8px rgba(255, 255, 255, 0.9);
+  box-shadow: inset 4px 4px 8px rgba(180, 190, 220, 0.45), inset -4px -4px 8px rgba(255, 255, 255, 0.9);
   border-color: var(--color-primary);
 }
 
 .clay-btn {
   background: var(--color-primary);
   border-radius: 1rem;
-  box-shadow: 6px 6px 14px rgba(139, 75, 45, 0.35), -6px -6px 14px rgba(255, 255, 255, 0.85), inset 2px 2px 5px rgba(255, 255, 255, 0.4), inset -2px -2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 6px 6px 14px rgba(41, 82, 204, 0.35), -4px -4px 12px rgba(255, 255, 255, 0.85), inset 2px 2px 5px rgba(255, 255, 255, 0.25), inset -2px -2px 5px rgba(0, 0, 0, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.15);
   color: white;
   transition: all 0.2s ease;
@@ -69,44 +72,44 @@ body {
 
 .clay-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 8px 8px 18px rgba(139, 75, 45, 0.35), -8px -8px 18px rgba(255, 255, 255, 0.95), inset 2px 2px 5px rgba(255, 255, 255, 0.4);
+  box-shadow: 8px 8px 20px rgba(41, 82, 204, 0.4), -6px -6px 16px rgba(255, 255, 255, 0.9), inset 2px 2px 5px rgba(255, 255, 255, 0.25);
 }
 
 .clay-btn:active {
   transform: translateY(1px);
-  box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.15), inset -4px -4px 10px rgba(255, 255, 255, 0.25);
+  box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.2), inset -4px -4px 10px rgba(255, 255, 255, 0.15);
 }
 
 .clay-btn-secondary {
-  background: #fbf9f5;
+  background: #f0f2f8;
   border-radius: 1rem;
-  box-shadow: 6px 6px 14px rgba(209, 205, 199, 0.45), -6px -6px 14px rgba(255, 255, 255, 0.9), inset 2px 2px 5px rgba(255, 255, 255, 0.8), inset -2px -2px 5px rgba(209, 205, 199, 0.2);
-  border: 2px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 6px 6px 14px rgba(180, 190, 220, 0.45), -6px -6px 14px rgba(255, 255, 255, 0.9), inset 2px 2px 5px rgba(255, 255, 255, 0.8), inset -2px -2px 5px rgba(180, 190, 220, 0.2);
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
   color: var(--color-on-surface);
   transition: all 0.2s ease;
 }
 
 .clay-btn-secondary:hover {
   transform: translateY(-2px);
-  box-shadow: 8px 8px 18px rgba(209, 205, 199, 0.45), -8px -8px 18px rgba(255, 255, 255, 0.95);
+  box-shadow: 8px 8px 18px rgba(180, 190, 220, 0.5), -8px -8px 18px rgba(255, 255, 255, 0.95);
 }
 
 .clay-btn-secondary:active {
   transform: translateY(1px);
-  box-shadow: inset 4px 4px 10px rgba(209, 205, 199, 0.3), inset -4px -4px 10px rgba(255, 255, 255, 0.8);
+  box-shadow: inset 4px 4px 10px rgba(180, 190, 220, 0.3), inset -4px -4px 10px rgba(255, 255, 255, 0.8);
 }
 
 .clay-text {
-  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.9), -1px -1px 1px rgba(0, 0, 0, 0.05);
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.9), -1px -1px 1px rgba(0, 0, 0, 0.04);
 }
 
 .clay-title {
-  text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.9), -1px -1px 2px rgba(0, 0, 0, 0.05);
+  text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.9), -1px -1px 2px rgba(0, 0, 0, 0.04);
 }
 
 .clay-checkbox {
   appearance: none;
-  background-color: #f5f3ef;
+  background-color: #eaecf4;
   margin: 0;
   font: inherit;
   width: 1.25em;
@@ -114,7 +117,7 @@ body {
   border-radius: 0.25em;
   display: grid;
   place-content: center;
-  box-shadow: inset 2px 2px 4px rgba(209, 205, 199, 0.5), inset -2px -2px 4px rgba(255, 255, 255, 0.9);
+  box-shadow: inset 2px 2px 4px rgba(180, 190, 220, 0.5), inset -2px -2px 4px rgba(255, 255, 255, 0.9);
   transition: all 0.2s ease;
 }
 
